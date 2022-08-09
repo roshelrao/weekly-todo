@@ -1,0 +1,17 @@
+.todo-cards{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    column-gap:20px;
+    row-gap: 20px;
+}
+
+.card-title{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.card-add{
+    cursor: pointer;
+}
