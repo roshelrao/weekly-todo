@@ -1,15 +1,15 @@
 import "./Card.css"
 import { CardItems } from "./CardItems";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const Card = (props) => {
-
+ 
     const [taskList, setTaskList] = useState([]);
 
     const AddTask = (day) => {
         console.log(`Task added for ${props.day}`);
         const inputTask = prompt(`Please enter task for ${day}`);
-        setTaskList(...taskList, {taskName:inputTask, day:props.day});
+        setTaskList([...taskList,{taskName:inputTask, day:props.day}]);
         console.log(taskList);
     }
 
@@ -21,7 +21,9 @@ export const Card = (props) => {
             </div>
             <div className="card-body" day={props.day} style={{border:`solid 2px ${props.color}`, height:250}}>
                 <CardItems inputData = {taskList} divDay= {props.day}/>
-            </div>
+                {/* {taskList.map((task) => {
+                return task.day === props.day ? <div><input type="radio"/>{task.taskName}</div> : null})} */}
+            </div>  
         </div>
     )
 }

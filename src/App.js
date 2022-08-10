@@ -4,9 +4,9 @@ import {useEffect} from "react"
 
 function App() {
 
-  useEffect(() => {
-    console.log("Started")
-  },[])
+  // useEffect(() => {
+  //   console.log("Started")
+  // },[])
 
   return (
     <div className="App">
