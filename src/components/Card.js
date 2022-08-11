@@ -1,20 +1,22 @@
 import "./Card.css"
 import { useState, useEffect } from "react";
 import { RiDeleteBin6Line } from 'react-icons/ri'
+import { MdOutlineCheckBoxOutlineBlank, MdOutlineCheckBox } from 'react-icons/md'
 
 export const Card = (props) => {
- 
     const [taskList, setTaskList] = useState([]);
+    const [isCompleted, setIsCompleted] = useState(false);
 
     const AddTask = (day) => {
         console.log(`Task added for ${props.day}`);
         const inputTask = prompt(`Please enter task for ${day}`);
-        setTaskList([...taskList,{taskId:taskList.length === 0 ? 1 : taskList[taskList.length - 1].id + 1, taskName:inputTask, day:props.day}]);
-        console.log(taskList);
+        setTaskList([...taskList,{taskId:taskList.length === 0 ? 1 : taskList[taskList.length - 1].taskId + 1, taskName:inputTask, day:props.day, isCompleted:isCompleted}]);
     }
 
     const deleteTask = (id) => {
+        console.log(id);
         setTaskList(taskList.filter((task) => task.taskId !== id && task.day !== taskList.day));
+        console.log(taskList);
     }
 
     return(
@@ -27,8 +29,12 @@ export const Card = (props) => {
             {taskList.map((task) => {
             return task.day === props.day ?
             <div className='task-item'>
-                <div className="task-item-name">
-                <input type="radio"/>{task.taskName}
+                <div className="task-item-name" style={{textDecoration:(task.isCompleted ? "line-through" : "none")}}>
+                {isCompleted ?
+                <MdOutlineCheckBox/>:
+                <MdOutlineCheckBoxOutlineBlank/> 
+                }
+                {task.taskName}
                 </div>
                 <RiDeleteBin6Line className="delete-btn" onClick={() => deleteTask(task.taskId)}/>
                 </div> : null})}
