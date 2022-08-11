@@ -19,6 +19,15 @@ export const Card = (props) => {
         console.log(taskList);
     }
 
+    const updateTask = (name, id, day) => {
+        taskList.map(task =>{
+            if(task.taskName === name && task.taskId === id && task.day === day){
+                task.isCompleted =! task.isCompleted
+            }
+        })
+        console.log(taskList);
+    }
+
     return(
         <div className="card">
             <div className="card-title" style={{backgroundColor:props.color}}>
@@ -30,10 +39,12 @@ export const Card = (props) => {
             return task.day === props.day ?
             <div className='task-item'>
                 <div className="task-item-name" style={{textDecoration:(task.isCompleted ? "line-through" : "none")}}>
+                <div className="completed-btn" onClick={() => {updateTask(task.taskName, task.taskId, task.day)}}>
                 {isCompleted ?
                 <MdOutlineCheckBox/>:
                 <MdOutlineCheckBoxOutlineBlank/> 
                 }
+                </div>
                 {task.taskName}
                 </div>
                 <RiDeleteBin6Line className="delete-btn" onClick={() => deleteTask(task.taskId)}/>

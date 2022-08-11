@@ -27,3 +27,11 @@ svg.delete-btn:hover{
     cursor: pointer;
     color:red;
 }
+
+.completed-btn:hover{
+    cursor: pointer;
+}
+
+.task-item-name{
+    display: flex;
+}
