@@ -22,3 +22,8 @@
     padding:10px 20px;
     font-family:Arial, Helvetica, sans-serif;
 }
+
+svg.delete-btn:hover{
+    cursor: pointer;
+    color:red;
+}
