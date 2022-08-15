@@ -10,7 +10,10 @@ export const Card = (props) => {
     const AddTask = (day) => {
         console.log(`Task added for ${props.day}`);
         const inputTask = prompt(`Please enter task for ${day}`);
-        setTaskList([...taskList,{taskId:taskList.length === 0 ? 1 : taskList[taskList.length - 1].taskId + 1, taskName:inputTask, day:props.day, isCompleted:isCompleted}]);
+        let newTaskList = [...taskList,{taskId:taskList.length === 0 ? 1 : taskList[taskList.length - 1].taskId + 1, taskName:inputTask, day:props.day, isCompleted:isCompleted}]
+        setTaskList(newTaskList)
+        // localStorage.setItem("tasks", JSON.stringify(newTaskList))
+        console.log(taskList)
     }
 
     const deleteTask = (id) => {
@@ -19,13 +22,14 @@ export const Card = (props) => {
         console.log(taskList);
     }
 
-    const updateTask = (name, id, day) => {
-        taskList.map(task =>{
-            if(task.taskName === name && task.taskId === id && task.day === day){
-                task.isCompleted =! task.isCompleted
+    const updateTask = (name, id, day, status) => {
+        setTaskList(taskList.map(task => {
+            if(task.taskId === id){
+                return { ...task, isCompleted: !status}
+            }else{
+                return task
             }
-        })
-        console.log(taskList);
+        }))
     }
 
     return(
@@ -36,10 +40,11 @@ export const Card = (props) => {
             </div>
             <div className="card-body" day={props.day} style={{border:`solid 2px ${props.color}`, height:250}}>
             {taskList.map((task) => {
+                console.log(taskList)
             return task.day === props.day ?
             <div className='task-item'>
                 <div className="task-item-name" style={{textDecoration:(task.isCompleted ? "line-through" : "none")}}>
-                <div className="completed-btn" onClick={() => {updateTask(task.taskName, task.taskId, task.day)}}>
+                <div className="completed-btn" onClick={() => {updateTask(task.taskName, task.taskId, task.day, task.isCompleted)}}>
                 {isCompleted ?
                 <MdOutlineCheckBox/>:
                 <MdOutlineCheckBoxOutlineBlank/> 
